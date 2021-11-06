@@ -1,4 +1,5 @@
-import React from 'react'
+import React,{useState} from 'react'
+import moment from 'moment';
 import CalendarHeader from './CalendarHeader';
 import CalendarBody from './CalendarBody';
 import {Wrapper,
@@ -6,61 +7,79 @@ import {Wrapper,
 
 function CalendarContainer() {
 
-  const date = new Date();
-  const viewYear = date.getFullYear();
-  const viewMonth = date.getMonth();
+  const [getMoment, setMoment]= useState(moment());     
+  const today = getMoment;  
+  //1년은 52주, but moment 에서는 내년의 첫주인 1로 표시하므로 마지막주가1 이라면 53이됨.
+  //윤년은 알아서 처리해줌.
+  const firstWeek = today.clone().startOf('month').week();
+  const lastWeek = today.clone().endOf('month').week() === 1 
+  ? 53 
+  : today.clone().endOf('month').week();
 
-  //이전달과 이번달의 마지막 일의 한국표준시까지 일단 구한다. 
-  const prevLast = new Date(viewYear,viewMonth,0);
-  const thisLast = new Date(viewYear,viewMonth+1,0);
+  // console.log('fistlas::',firstWeek,lastWeek);
 
-  //구한 이전달과 이번달 각각의 마지막 일,요일의 인덱스 구한다.
-  const PLDate = prevLast.getDate();
-  const PLDay = prevLast.getDay();
-  //0:일,1월,2화~~,3,4,5,6:토
-  // console.log('PLDate::',PLDate,'PLDay::',PLDay)
-  const TLDate = thisLast.getDate();
-  const TLDay = thisLast.getDay();
-  // console.log('TLDate::',TLDate,'TLDay::',TLDay)
   
-  //각 달에 찍힌 숫자형 date 를 배열로 바꾼다.
-  //0:undefined -> 배열의 키만 담고 0제외해야하니까 +1, 맨마지막값 slice하기.
-  const prevDates = [];
-  const thisDates = [...Array(TLDate + 1).keys()].slice(1);
-  const nextDates = [];
-  
-  //토요일(6) 이 아니면 하나씩 추가하면서 돌고 
-  if(PLDay !== 6){
-    for(let i = 0; i<PLDay+1; i++){
-      prevDates.unshift(PLDate - i);
-      // console.log('preddvDates:::',PLDate,i)
+  const movePrevMonthHandler = () => {
+    setMoment(getMoment.clone().subtract(1,'month'))
+    // console.log('prevmomenth:::',getMoment)
+  }
+  const moveNextMonthHandler = () => {
+    setMoment(getMoment.clone().add(1,'month'))
+    // console.log('nextttt',getMoment)
+  }
+
+  //캘린더 배열로 뿌려주기.
+  const calendarArr=()=>{
+
+    let result = [];
+    let week = firstWeek;
+    // 7일 기준 반복문 출력. 0부터 6까지 idx 로 표현.
+    // moment는 현재날짜로 초기화 되어있긴 하지만 53주째를 내년으로 출력해서 원하는값 나오지않을수 있음.
+    // 명시적으로 년도를 지정해준다.
+
+    for ( week; week <= lastWeek; week++) {
+      result = result.concat(
+        <tr key={week}>
+        {Array(7).fill(0).map((_data, index) => {
+          let days = today.clone().startOf('year').week(week).startOf('week').add(index, 'day');
+          if(moment().format('YYYYMMDD') === days.format('YYYYMMDD')){
+            return (
+              <td key={index} style={{backgroundColor:'red'}} >
+                <span>{days.format('D')}</span>
+              </td>
+            )
+          }else if(days.format('MM') !== today.format('MM')){
+            return (
+              <td key={index} style={{backgroundColor:'gray'}} >
+              <span>{days.format('D')}</span>
+            </td>
+            )
+          }else{
+            return(
+              <td key={index}  >
+                <span>{days.format('D')}</span>
+              </td>
+          );
+          }
+          })
+        }
+      </tr>
+        );
+
     }
+    return result;
   }
-  //다음달 보여주려면 오늘날짜가 끝나는지점까지 i 가 돌고 그 i만큼 배열에 담아준다.
-  for(let i = 1; i<7-TLDay; i++){
-    nextDates.push(i);
-  }
-
-  const dates = prevDates.concat(thisDates,nextDates);
-  console.log('dates::',dates);
-  // 뿌려서 보여준다.
-
-  dates.forEach((date,i)=>{
-    // console.log('date:::',date)
-    dates[i] = date
-  })
-
-
 
   return (
     <>
       <Wrapper className = 'calendar'>
         <CalendarHeader 
-        viewYear = {viewYear}
-        viewMonth = {viewMonth}
+        today = {today}
+        movePrevMonthHandler = {movePrevMonthHandler}
+        moveNextMonthHandler = {moveNextMonthHandler}
         />
         <CalendarBody 
-        dates = {dates}
+        calendarArr = {calendarArr}
         />
       </Wrapper> 
     </>

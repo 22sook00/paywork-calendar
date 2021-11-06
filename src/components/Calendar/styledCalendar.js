@@ -30,11 +30,11 @@ export const EachDay = styled.div`
 width: calc(100% / 7);
 text-align : center;
 `
-export const Dates = styled.div`
+export const DatesTable = styled.table`
 display: flex;
 flex-flow: row wrap;
 `
-export const EachDate = styled.div`
+export const DatesBody = styled.tbody`
 box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;
 width : calc(100% / 7);
 margin : 5px;

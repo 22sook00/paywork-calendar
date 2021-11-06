@@ -3,15 +3,23 @@ import {CalendarHeaderWrapper,YearMonth,
   CalendarNav,CalendarBtn,
 } from './styledCalendar'
 
-function CalendarHeader({viewYear,viewMonth}) {
-
+function CalendarHeader({today,
+  movePrevMonthHandler,moveNextMonthHandler}) {
+  // console.log('today::',today)
   return (
     <CalendarHeaderWrapper>
-      <YearMonth>{viewYear}.{viewMonth}</YearMonth>
       <CalendarNav>
-        <CalendarBtn className = 'go-prev'>&lt;</CalendarBtn>
-        <CalendarBtn className = 'go-next'>&gt;</CalendarBtn>
-        <CalendarBtn>이번달</CalendarBtn>
+        <span>{today.format('YYYY.MM')}</span>   
+        <CalendarBtn 
+        className = 'go-prev'
+        onClick = {movePrevMonthHandler}
+        >&lt;</CalendarBtn>
+        <CalendarBtn 
+        className = 'go-next'
+        onClick = {moveNextMonthHandler}
+        >&gt;</CalendarBtn>
+        <CalendarBtn
+        >이번달</CalendarBtn>
       </CalendarNav>
     </CalendarHeaderWrapper>
   )

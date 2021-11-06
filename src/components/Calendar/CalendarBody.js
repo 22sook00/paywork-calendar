@@ -2,9 +2,10 @@ import React,{useState} from 'react'
 import {dayArr} from '../../Assets/datas';
 import {
   CalendarBodyWrapper,
-  Days,EachDay,Dates,EachDate} from './styledCalendar'
+  Days,EachDay,DatesTable,DatesBody} from './styledCalendar'
 
-function CalendarBody({dates}) {
+function CalendarBody({calendarArr}) {
+  console.log('calendarArr:',calendarArr())
 
   const [day,setDay] = useState(dayArr);
 
@@ -20,16 +21,12 @@ function CalendarBody({dates}) {
       })}
       </Days>
       
-      <Dates>
-      {dates.map((el,idx)=>{
-        return (
-          <EachDate
-          className = 'datas'
-          key = {idx}>{el}
-          </EachDate>
-        )
-      })}
-      </Dates>
+      <DatesTable>
+        <DatesBody>
+          {calendarArr()}
+        </DatesBody>
+      </DatesTable>
+
     </CalendarBodyWrapper>
   )
 }
