@@ -88,13 +88,13 @@ const DateButton = styled.button`
   border-radius: 90px;
   font-weight: 900;
   background-color: ${(props) =>
-    props.isSelectedDate && props.category === "current"
+    props.isSelectedDate && props.category === "cur"
       ? "#1e90ff"
       : props.isToday
       ? "#e9e9e9"
       : "transparent"};
   color: ${(props) =>
-    props.category === "previous" || props.category === "next"
+    props.category === "prev" || props.category === "next"
       ? "#c9c9c9"
       : props.isSelectedDate
       ? "#ffffff"

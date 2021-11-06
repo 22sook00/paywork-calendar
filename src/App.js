@@ -1,16 +1,14 @@
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import { calendarReducer } from './_reducers/btn_reducer'
 import Calendar from './Components/Calendar/Calendar'
-
-const calendarStore = createStore(calendarReducer);
-
+import Title from './Components/Title/Title'
+import Footer from './Components/Footer/Footer'
+import {GlobalStyle} from './GlobalStyle'
 function App() {
   return (
     <div className="App">
-      <Provider store={calendarStore}>
+      <GlobalStyle/>
+        <Title />
         <Calendar />
-      </Provider>
+        <Footer />
     </div>
   );
 }

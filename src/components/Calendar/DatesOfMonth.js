@@ -1,14 +1,15 @@
 import { style } from "./CalendarStyles";
-import useCalendar from '../../Hooks/useCalendar';
 
-const DatesOfMonth = () => {
-  const {
-    currMonth,
-    isToday,
-    isSelectedDate,
-    datesOfMonth,
-    handleClickedDate,
-  } = useCalendar();
+const DatesOfMonth = ({
+  isToday,isSelectedDate,currMonth,
+  datesOfMonth,handleClickedDate}) => {
+  // const {
+  //   currMonth,
+  //   isToday,
+  //   isSelectedDate,
+  //   datesOfMonth,
+  //   handleClickedDate,
+  // } = useCalendar();
 
   return (
     <DatesOfMonthLayout>

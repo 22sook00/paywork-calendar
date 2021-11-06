@@ -8,9 +8,10 @@ export const stateCreator = ({ type, currCalendarState }) => {
 
   switch (type) {
     // 이전 달의 날짜 선택 시
-    case "previous": {
+    case "prev": {
       // 연도 변경 체크
       if (isJanuary(currCalendarState.currMonth)) {
+        console.log('currCalendarState::',currCalendarState.currMonth)
         return {
           ...currCalendarState,
           currYear: currCalendarState.currYear - 1,

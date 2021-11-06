@@ -50,15 +50,20 @@ function calendarReducer(calendarState = calendarInitialState, action) {
       };
     }
     case CLICK_PREV_BUTTON: {
+      console.log('prevcalendarState::',calendarState)
       return stateCreator({
-        type: "previous",
+        type: "prev",
         currCalendarState: calendarState,
       });
     }
     case CLICK_NEXT_BUTTON: {
-      return stateCreator({ type: "next", currCalendarState: calendarState });
+      console.log('nextcalendarState::',calendarState)
+      return stateCreator({ 
+        type: "next", 
+        currCalendarState: calendarState });
     }
     case CLICK_THISMONTH_BUTTON: {
+      console.log('thiscalendarState::',calendarState)
       return {
         ...calendarState,
         currYear: calendarState.today.year,
