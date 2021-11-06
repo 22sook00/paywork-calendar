@@ -58,8 +58,8 @@ function Calendar() {
     return value.clone().add(1,'month')
   }
   const thisMonth = () => {
-    console.log('valueuu',moment().month()+1)
-    return value.moment().month()+1
+    // console.log('valueuu',moment())
+    return moment();
   }
 
 
