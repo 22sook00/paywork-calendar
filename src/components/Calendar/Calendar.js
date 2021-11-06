@@ -1,181 +1,88 @@
-import React from 'react';
-import { useDispatch } from "react-redux";
-import {
-  clickDate,
-  clickPrevButton,
-  clickNextButton,
-  clickThisMonthButton,
-} from '../../_actions/btn_action';
-import { style } from "./CalendarStyles";
-import * as moment from "moment";
+import React,{useState,useEffect} from 'react'
+import moment from 'moment';
+import {CalendarWrapper} from './styledCalendar';
+import CalendarHeader from './CalendarHeader';
+import CalendarBody from './CalendarBody';
 
-import CalendarButtons from "./CalendarButtons";
-import DaysOfWeek from './DaysOfWeeks';
-import DatesOfMonth from './DatesOfMonth';
+function Calendar() {
 
-const Calendar = () => {
-  // const [tempArr , setTempArr] = useState([]);
-  const dispatch = useDispatch();
+  const [calendar ,setCalendar] = useState([]);
+  const [value ,setValue] = useState(moment()); 
+  
+  const startDay = value.clone().startOf('month').startOf('week');
+  const endDay = value.clone().endOf('month').endOf('week');
 
-  const today = {
-      year: moment().year(),
-      month: moment().month() + 1,
-      date: moment().get("date"),
-  }
-  const currYear = moment().year()
-  const currMonth = moment().month() + 1
-  const selectedDate = null
-
-  const isToday = (date) => {
-    return (
-      currYear === today.year &&
-      currMonth === today.month &&
-      date.date === today.date
-    );
-  };
-
-  const isSelectedDate = (date) => {
-    return (
-      selectedDate &&
-      currYear === selectedDate.year &&
-      currMonth === selectedDate.month &&
-      date.date === selectedDate.date
-    );
-  };
-
-  //보여지는 월의 마지막 날짜
-  const lastDateOfCurrMonth = 
-  moment([currYear, 0, 31])
-  .month(currMonth - 1)
-  .format("DD");
-
-  //이번달 1일의 요일
-  const firstDayOfThisMonth = 
-  moment([currYear, currMonth - 1, 1])
-  .day();
-
-  //이번달 마지막날의 요일
-  const lastDayOfThisMonth = 
-  moment([
-    currYear,
-    currMonth - 1,
-    lastDateOfCurrMonth,
-  ])
-  .day();
-
-  //이전달의 마지막 날짜
-  const lastDateOfLastMonth = 
-  moment([currYear, 0, 31])
-  .month(currMonth - 1 - 1)
-  .format("DD");
-
-  //보여지는 월의 1 ~ 마지막날짜까지 일자를 갖고 있는 배열
-  const datesOfCurrMonth = 
-  Array.from(
-    { length: lastDateOfCurrMonth },
-    (v, i) => {
-      return {
-        date: i + 1,
-        month: "cur",
-      };
+  useEffect(()=>{  
+    const day = startDay.clone().subtract(1,'day')
+    const calendarArr = [];
+    while(day.isBefore(endDay,'day')){
+      calendarArr.push(
+      Array(7).fill(0)
+      .map(()=>day.add(1,'day').clone())
+      );
     }
-  );
+    setCalendar(calendarArr);
+  },[value])
 
-  const getDatesOfLastMonth = () => {
-    const emptyArr = Array.from({ length: firstDayOfThisMonth });
-    let firstShowingDate = lastDateOfLastMonth - firstDayOfThisMonth + 1;
-    return emptyArr.map(() => {
-      return {
-        date: firstShowingDate++,
-        month: "prev",
-      };
-    });
-  };
+  const isSelected = (day,value) => {
+    // console.log('selected::',day)
+    return value.isSame(day,'day')
+  }
+  //month 로 바꾸면 되지않을까.
+  const beforeThisMonth = (day) => {
+    // console.log('before::',day)
+    return day.isBefore(new Date(),'day')
+  }
+  const isToday = (day) => {
+    // console.log('today::',day)
+    return day.isSame(new Date(), 'day')
+  }
+  const dayStyles = (day,value) => {
+    if(beforeThisMonth(day)) return 'before'
+    if(isToday(day)) return 'today'
+    if(isSelected(day,value)) return 'focus'
+    return ''
+  }
 
-  const getDatesOfNextMonth = () => {
-    const emptyArr = Array.from({ length: 6 - lastDayOfThisMonth });
-    let count = 1;
-    return emptyArr.map(() => {
-      return {
-        date: count++,
-        month: "next",
-      };
-    });
-  };
+  const prevMonth = () => {
+    return value.clone().subtract(1,'month');
+  }
+  const curYear = () => {
+    return value.format('YYYY')
+  }
+  const curMonth = () => {
+    return value.format('MM')
+  }
+  const nextMonth = () => {
+    // console.log('asdf',value.clone().add(1,'month'))
+    return value.clone().add(1,'month')
+  }
+  const thisMonth = () => {
+    console.log('valueuu',moment().month()+1)
+    return value.moment().month()+1
+  }
 
-  const datesOfMonth = [
-    ...getDatesOfLastMonth(),
-    ...datesOfCurrMonth,
-    ...getDatesOfNextMonth(),
-  ];
-  // console.log('datesOfMonth:::',datesOfMonth)
 
-  const handleClickedDate = (clickedDate, displayedMonth) => {
-    dispatch(
-      clickDate({
-        clickedDate,
-        displayedMonth,
-      })
-    );
-  };
-
-  const handlePrevButtonClick = () => {
-    dispatch(clickPrevButton());
-  };
-
-  const handleNextButtonClick = () => {
-    dispatch(clickNextButton());
-  };
-
-  const handleThisMonthButtonClick = () => {
-    dispatch(clickThisMonthButton());
-  };
   return (
-    <CalendarContainer>
-      <CalendarLayout>
-        <CalendarHeader>
-          <CurrentYearMonthLayer>
+    <CalendarWrapper className = 'calendar'>
+      
+      <CalendarHeader
+      setValue = {setValue}
+      prevMonth = {prevMonth}
+      thisMonth = {thisMonth}
+      curYear = {curYear}
+      curMonth = {curMonth}
+      nextMonth = {nextMonth}
+      />
+      <CalendarBody
+      calendar = {calendar}
+      value = {value}
+      setValue = {setValue}
+      dayStyles = {dayStyles}
+      />
 
-            <CurrentYear>{currYear}</CurrentYear>
-            <CurrentMonth>.{currMonth}</CurrentMonth>
+    </CalendarWrapper>
+  )
+}
 
-          </CurrentYearMonthLayer>
-
-          <CalendarButtonLayer>
-            <CalendarButtons 
-            handlePrevButtonClick = {handlePrevButtonClick}
-            handleNextButtonClick = {handleNextButtonClick}
-            handleThisMonthButtonClick = {handleThisMonthButtonClick}
-            />
-          </CalendarButtonLayer>
-
-        </CalendarHeader>
-
-        <CalendarBody>
-          <DaysOfWeek />
-          <DatesOfMonth 
-          isToday = {isToday}
-          isSelectedDate = {isSelectedDate}
-          currMonth = {currMonth}
-          datesOfMonth={datesOfMonth}
-          handleClickedDate = {handleClickedDate}
-          />
-        </CalendarBody>
-        
-      </CalendarLayout>
-    </CalendarContainer>
-  );
-};
-
-export default Calendar;
-
-const {
-  CalendarContainer,
-  CalendarLayout,
-  CalendarHeader,
-  CurrentYearMonthLayer,
-  CurrentYear,
-  CurrentMonth,
-  CalendarButtonLayer,
-  CalendarBody,
-} = style;
+export default Calendar
