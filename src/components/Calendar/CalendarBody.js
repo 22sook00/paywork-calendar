@@ -1,7 +1,10 @@
 import React from 'react'
 import {StyledDays,StyledEachDay} from './styledCalendar';
 
-function CalendarBody({calendar,setValue,value,dayStyles}) {
+function CalendarBody({calendar,setValue,value,
+  dayStyles}) {
+
+
   return (
     <>
       {calendar.map((week,idx)=>{
@@ -14,7 +17,8 @@ function CalendarBody({calendar,setValue,value,dayStyles}) {
                 className = 'day'
                 onClick = {()=>setValue(day)}>
                   <StyledEachDay 
-                  className = {dayStyles(day,value)
+                  className = {
+                    dayStyles(day,value)
                   }>
                   {day.format('D').toString()}
                   </StyledEachDay>

@@ -8,13 +8,15 @@ function Calendar() {
 
   const [calendar ,setCalendar] = useState([]);
   const [value ,setValue] = useState(moment()); 
-  
+  const today = value;
+
   const startDay = value.clone().startOf('month').startOf('week');
   const endDay = value.clone().endOf('month').endOf('week');
 
   useEffect(()=>{  
     const day = startDay.clone().subtract(1,'day')
     const calendarArr = [];
+
     while(day.isBefore(endDay,'day')){
       calendarArr.push(
       Array(7).fill(0)
@@ -25,20 +27,21 @@ function Calendar() {
   },[value])
 
   const isSelected = (day,value) => {
-    // console.log('selected::',day)
     return value.isSame(day,'day')
   }
-  //month 로 바꾸면 되지않을까.
-  const beforeThisMonth = (day) => {
-    // console.log('before::',day)
-    return day.isBefore(new Date(),'day')
+
+  const notCurMonth = (day) => {
+    let isGrayed = day.format('MM') !== today.format('MM') 
+    ? 
+    'not-cur-month' : ''
+    return isGrayed
   }
+
   const isToday = (day) => {
-    // console.log('today::',day)
     return day.isSame(new Date(), 'day')
   }
   const dayStyles = (day,value) => {
-    if(beforeThisMonth(day)) return 'before'
+    if(notCurMonth(day)) return 'not-cur-month'
     if(isToday(day)) return 'today'
     if(isSelected(day,value)) return 'focus'
     return ''
@@ -61,7 +64,6 @@ function Calendar() {
     // console.log('valueuu',moment())
     return moment();
   }
-
 
   return (
     <CalendarWrapper className = 'calendar'>

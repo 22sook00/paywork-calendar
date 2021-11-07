@@ -22,4 +22,7 @@ export const StyledEachDay = styled.div`
 &.focus{
   color : red;
 }
+&.not-cur-month{
+  color : grey;
+}
 `
