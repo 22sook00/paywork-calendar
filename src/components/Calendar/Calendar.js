@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { CalendarWrapper } from "./styledCalendar";
 import CalendarHeader from "./CalendarHeader";
-import CalendarBody from "./CalendarBody";
+import CalendarDayOfWeek from "./CalendarDayOfWeek";
+import CalendarItem from "./CalendarItem";
 
 function Calendar() {
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
-  const today = value;
 
-  const startDay = value.clone().startOf("month").startOf("week");
-  const endDay = value.clone().endOf("month").endOf("week");
+  const startDay = value.clone().startOf("month").startOf("week"); //전달 보여지는 마지막주
+  const endDay = value.clone().endOf("month").endOf("week"); //다음달 보여지는 마지막주.
 
   useEffect(() => {
-    const day = startDay.clone().subtract(1, "day");
+    const day = startDay.clone().subtract(1, "day"); //전달 보여지는 마지막주의 하루전.
     const calendarArr = [];
+    // console.log('daydaydya',day.isBefore(endDay,'day')) //true 반환.->
 
     while (day.isBefore(endDay, "day")) {
       calendarArr.push(
@@ -24,61 +25,14 @@ function Calendar() {
       );
     }
     setCalendar(calendarArr);
+    // console.log('calendar:::',calendar)
   }, [value]);
-
-  const isSelected = (day, value) => {
-    return value.isSame(day, "day");
-  };
-
-  const notCurMonth = (day) => {
-    // let isGrayed =
-    return day.format("MM") !== today.format("MM");
-    // return isGrayed
-  };
-
-  const isToday = (day) => {
-    return day.isSame(new Date(), "day");
-  };
-  const dayStyles = (day, value) => {
-    if (notCurMonth(day)) return "not-cur-month";
-    if (isToday(day)) return "today";
-    if (isSelected(day, value)) return "focus";
-    return "";
-  };
-
-  const prevMonth = () => {
-    return value.clone().subtract(1, "month");
-  };
-  const curYear = () => {
-    return value.format("YYYY");
-  };
-  const curMonth = () => {
-    return value.format("MM");
-  };
-  const nextMonth = () => {
-    return value.clone().add(1, "month");
-  };
-  const thisMonth = () => {
-    // console.log('valueuu',value.format('DD'))
-    return moment();
-  };
 
   return (
     <CalendarWrapper>
-      <CalendarHeader
-        setValue={setValue}
-        prevMonth={prevMonth}
-        thisMonth={thisMonth}
-        curYear={curYear}
-        curMonth={curMonth}
-        nextMonth={nextMonth}
-      />
-      <CalendarBody
-        calendar={calendar}
-        value={value}
-        setValue={setValue}
-        dayStyles={dayStyles}
-      />
+      <CalendarHeader value={value} setValue={setValue} />
+      <CalendarDayOfWeek />
+      <CalendarItem calendar={calendar} value={value} setValue={setValue} />
     </CalendarWrapper>
   );
 }

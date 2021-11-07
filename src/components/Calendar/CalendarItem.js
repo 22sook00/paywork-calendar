@@ -1,7 +1,8 @@
 import React from "react";
 import { StyledDays, StyledEachDay } from "./styledCalendar";
+import { dayStyles } from "../Hook/calendarFunc";
 
-function CalendarBody({ calendar, setValue, value, dayStyles }) {
+function CalendarItem({ calendar, setValue, value }) {
   return (
     <>
       {calendar.map((week, idx) => {
@@ -27,4 +28,4 @@ function CalendarBody({ calendar, setValue, value, dayStyles }) {
   );
 }
 
-export default CalendarBody;
+export default CalendarItem;
