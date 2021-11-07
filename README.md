@@ -1,11 +1,10 @@
-# 🗓 Make Calendar MySelf
+# 🗓 Make Custom Calendar
 
-make Calendar using React-hooks without any library! 🙌🏻
+make Custom Calendar using React-hooks 🙌🏻
 
 ### Use Stacks
 
 - React hooks
-- Redux
 - JavaScript
 - Styled-Components 
 - moment.js
