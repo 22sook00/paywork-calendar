@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const TitleContainer = styled.header`
-font-size: 42px;
-font-family: Ubuntu;
-`
+  font-size: 42px;
+  height: 100px;
+`;

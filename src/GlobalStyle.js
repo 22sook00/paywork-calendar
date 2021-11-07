@@ -1,5 +1,5 @@
-import styled, {createGlobalStyle} from 'styled-components'
-import reset from 'styled-reset'
+import styled, { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -11,46 +11,36 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing : antialiased;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    transition : all 0.5s;
     &::-webkit-scrollbar{
       display: none;
     };
-    transition : all 0.5s;
     font-family: 'Nanum Gothic Coding', monospace;
     font-family: 'Ubuntu', sans-serif;
   }
-  article{
-    &:hover{
-    transform: translateX(10px);
-    transition: 0.5s;
-    }
-  }
-  a {
-    text-decoration: none;
-  }
+
   button{
     border: none;
     cursor: pointer;
     &:active,&:focus{
       outline: none;
     }
+    &:hover{
+      transition : all 0.5s;
+      background: #f0f4f7;
+    }
   }
-`
-export const PointColor = 
-'linear-gradient(135deg, #4568DC 0%, #B06AB3 100%)'
-
-export const TextColor = 
-'#3b3d40';
+`;
+export const TextColor = "#57575c";
+export const PointColor = "#418ef2";
+export const HoverGreyColor = "rgba(0,0,0,0.03)";
 
 export const Container = styled.main`
-height : 100vh;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-
-font : inherit;
-font-family: 'NanumSquareRound';
-@media screen and (min-width: 767px) {
-  
-};
-`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Ubuntu;
+  font: inherit;
+`;

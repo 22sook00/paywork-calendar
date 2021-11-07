@@ -1,28 +1,87 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import {
+  HoverGreyColor,
+  PointColor,
+  TextColor,
+} from "../../GlobalStyle";
 
 export const CalendarWrapper = styled.div`
-width : 430px;
-height : 460px;
-`
+  width: 430px;
+  height: 460px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;
+  border-radius: 8px;
+  padding: 30px;
+  box-sizing: border-box;
+`;
 export const StyledDays = styled.div`
-position : relative;
-width : calc(100% / 7);
-height : 44px;
-display: inline-block;
-padding : 0;
-margin : 0;
-box-sizing : border-box;
-z-index: 1000;
-text-align : center;
-`
+  width: calc(100% / 7);
+  height: 50px;
+  line-height: 50px;
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+  &:nth-child(1) {
+    color: #f5738b;
+  }
+  &:nth-child(7) {
+    color: ${PointColor};
+  }
+`;
 export const StyledEachDay = styled.div`
-&.today{
-  color : blue;
-}
-&.focus{
-  color : red;
-}
-&.not-cur-month{
-  color : grey;
-}
-`
+  border-radius: 50%;
+  margin: 0 1px;
+  &:hover {
+    transition: all 0.5s;
+    background: ${HoverGreyColor};
+  }
+  &.today {
+    background: #e4e7ed;
+    color: black;
+    font-weight: 800;
+  }
+  &.focus {
+    background: ${PointColor};
+    color: #fff;
+  }
+  &.not-cur-month {
+    color: #cbced6;
+  }
+`;
+export const FlexBox = styled.div`
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  > p {
+    font-size: 20px;
+    margin-left: 18px;
+  }
+`;
+export const Btns = styled.button`
+  width: fit-content;
+  height: 40px;
+  margin: 0 3px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: ${HoverGreyColor};
+  color: ${TextColor};
+  font-size: 18px;
+  font-family: "Nanum Gothic Coding";
+  letter-spacing: -1px;
+  &:hover {
+    color: ${PointColor};
+    background: rgba(0, 0, 0, 0.01);
+  }
+  &.this {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+`;
+export const StyledDayOfWeek = styled.div`
+  font-family: "Nanum Gothic Coding";
+  > div {
+    color: ${TextColor};
+    font-weight: 900;
+  }
+`;

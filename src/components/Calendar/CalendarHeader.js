@@ -1,31 +1,45 @@
-import React from 'react'
-// import {StyledDays,StyledEachDay} from './styledCalendar';
+import React from "react";
+import { FlexBox, Btns, StyledDayOfWeek, StyledDays } from "./styledCalendar";
 
 function CalendarHeader({
-  curYear,curMonth,thisMonth,
-  setValue,prevMonth,nextMonth}) {
-  
+  curYear,
+  curMonth,
+  thisMonth,
+  setValue,
+  prevMonth,
+  nextMonth,
+}) {
+  const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+
   return (
     <>
-    <div>{curYear()}.{curMonth()}</div>
-    <button
-    className = 'prev'
-    onClick = {()=>setValue(prevMonth())}
-    >{String.fromCharCode(171)}</button>
+      <FlexBox>
+        <p>
+          {curYear()}.{curMonth()}
+        </p>
 
-    <button
-    className = 'next'
-    onClick = {()=>setValue(nextMonth())}
-    >{String.fromCharCode(187)}</button>
-    
-    <button
-    className = 'this'
-    onClick = {()=>setValue(thisMonth())}
-    >이번달
-    </button>
+        <div>
+          <Btns className="prev" onClick={() => setValue(prevMonth())}>
+            <i className="fas fa-chevron-left"></i>
+          </Btns>
 
+          <Btns className="next" onClick={() => setValue(nextMonth())}>
+            <i className="fas fa-chevron-right"></i>
+          </Btns>
+
+          <Btns className="this" onClick={() => setValue(thisMonth())}>
+            이번달
+          </Btns>
+        </div>
+      </FlexBox>
+
+      <StyledDayOfWeek>
+        {dayOfWeek.map((el, idx) => {
+          return <StyledDays key={idx}>{el}</StyledDays>;
+        })}
+      </StyledDayOfWeek>
     </>
-  )
+  );
 }
 
-export default CalendarHeader
+export default CalendarHeader;
