@@ -4,12 +4,10 @@ import { HoverGreyColor, PointColor, TextColor } from "../../Theme/GlobalStyle";
 export const CalendarWrapper = styled.div`
   width: 430px;
   height: 460px;
-  box-shadow: ${({ theme }) => (theme === "light" ? 
-  "rgb(0 0 0 / 10%) 0px 2px 16px 1px" 
-  : 
-  '0px 5px 10px rgba(30, 30, 40, 10), 0px 2px 4px rgba(10, 40, 50, 10)')};
-
-
+  box-shadow: ${({ theme }) =>
+    theme === "light"
+      ? "rgb(0, 0, 0, 0.1) 0px 2px 16px 1px"
+      : "#fff 0px 2px 16px 1px"};
   border-radius: 8px;
   padding: 30px;
   box-sizing: border-box;
@@ -62,8 +60,8 @@ export const FlexBox = styled.div`
 
 export const StyledDayOfWeek = styled.div`
   font-family: "Nanum Gothic Coding";
+  color: ${({ theme }) => (theme === "light" ? TextColor : "#cbced6")};
   > div {
-    color: ${TextColor};
     font-weight: 900;
   }
 `;

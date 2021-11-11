@@ -1,16 +1,14 @@
-import React from 'react';
-import {ToggleWrapper} from './styledButton';
+import React from "react";
+import { ToggleButtonWrapper } from "./styledButton";
 
 function ToggleButton({ toggle, mode }) {
-
   return (
-    <ToggleWrapper 
-    onClick={toggle} 
-    mode={mode}>
-      {mode === 'dark' ?
-      'DarkMode' : 'LightMode'}
-    </ToggleWrapper>
-  )
+    <>
+      <ToggleButtonWrapper onClick={toggle} mode={mode}>
+        {mode === "dark" ? "Dark Mode" : "Light Mode"}
+      </ToggleButtonWrapper>
+    </>
+  );
 }
 
-export default ToggleButton
+export default ToggleButton;

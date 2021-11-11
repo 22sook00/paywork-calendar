@@ -8,10 +8,8 @@ const AppLayout = ({ children }) => {
   const [ThemeMode, toggleTheme] = useTheme();
 
   return (
-    <Container className="appLayout">
-      <ToggleButton toggle={toggleTheme} mode={ThemeMode}>
-        DarkMode
-      </ToggleButton>
+    <Container>
+      <ToggleButton toggle={toggleTheme} mode={ThemeMode} />
       <ThemeContainer>{children}</ThemeContainer>
     </Container>
   );

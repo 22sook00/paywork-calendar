@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Container = styled.div`
   min-height: 100%;
-  position :relative;
+  position: relative;
 `;
 export const ThemeContainer = styled.div`
   display: flex;
@@ -11,14 +11,10 @@ export const ThemeContainer = styled.div`
   align-items: center;
   margin: 0 auto;
   transition: all 0.2s linear;
-
-  background : ${({theme})=>theme.bgColor};
-  color : ${({theme})=> theme.textColor};
-  border: ${({theme}) => theme.borderColor};
-
 `;
 
 export const ThemeBtn = styled.button`
-border:3px solid;
-width : 100px; height : 100px;
-`
+  border: 3px solid;
+  width: 100px;
+  height: 100px;
+`;

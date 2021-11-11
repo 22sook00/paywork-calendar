@@ -3,7 +3,7 @@ import { StyledDays, StyledEachDay } from "./styledCalendar";
 import { useTheme } from "../Hooks/themeProvider";
 import { dayStyles } from "../Hooks/calendarFunc";
 
-function CalendarItem({ calendar, setValue, value }) {
+function CalendarItem({ calendar, value, changeMonthHandler }) {
   const ThemeMode = useTheme();
 
   return (
@@ -17,7 +17,7 @@ function CalendarItem({ calendar, setValue, value }) {
                   theme={ThemeMode[0]}
                   key={idx}
                   className="day"
-                  onClick={() => setValue(day)}
+                  onClick={() => changeMonthHandler(day)}
                 >
                   <StyledEachDay
                     theme={ThemeMode[0]}

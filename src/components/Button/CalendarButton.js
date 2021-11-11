@@ -3,7 +3,9 @@ import moment from "moment";
 import { useTheme } from "../Hooks/themeProvider";
 import { Btns } from "./styledButton";
 
-function CalendarButton({ value, setValue }) {
+function CalendarButton({ value, changeMonthHandler }) {
+  const ThemeMode = useTheme();
+
   const prevMonth = () => {
     return value.clone().subtract(1, "month");
   };
@@ -11,18 +13,15 @@ function CalendarButton({ value, setValue }) {
     return value.clone().add(1, "month");
   };
   const thisMonth = () => {
-    // console.log('valueuu',value.format('DD'))
     return moment();
   };
-
-  const ThemeMode = useTheme();
 
   return (
     <div>
       <Btns
         theme={ThemeMode[0]}
         className="prev"
-        onClick={() => setValue(prevMonth())}
+        onClick={() => changeMonthHandler(prevMonth())}
       >
         <i className="fas fa-chevron-left"></i>
       </Btns>
@@ -30,14 +29,14 @@ function CalendarButton({ value, setValue }) {
       <Btns
         theme={ThemeMode[0]}
         className="next"
-        onClick={() => setValue(nextMonth())}
+        onClick={() => changeMonthHandler(nextMonth())}
       >
         <i className="fas fa-chevron-right"></i>
       </Btns>
       <Btns
         theme={ThemeMode[0]}
         className="this"
-        onClick={() => setValue(thisMonth())}
+        onClick={() => changeMonthHandler(thisMonth())}
       >
         이번달
       </Btns>

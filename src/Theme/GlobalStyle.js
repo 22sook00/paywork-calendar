@@ -15,7 +15,9 @@ export const GlobalStyle = createGlobalStyle`
     &::-webkit-scrollbar{
       display: none;
     };
-    
+    background : ${({ theme }) => theme.bgColor};
+    color : ${({ theme }) => theme.textColor};
+    border: ${({ theme }) => theme.borderColor};
     font-family: 'Nanum Gothic Coding', monospace;
     font-family: 'Ubuntu', sans-serif;
   }

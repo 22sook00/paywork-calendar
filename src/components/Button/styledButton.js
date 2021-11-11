@@ -23,23 +23,28 @@ export const Btns = styled.button`
   }
 `;
 
-export const ToggleWrapper = styled.button`
-  position: fixed;
-  z-index: 999999;
-  bottom: 4%;
-  right: 3%;
-
-  background: ${({ theme }) => theme.bgColor};
-  color: ${({ theme }) => theme.textColor};
-
-  font-size: 20px;
-
+export const ToggleButtonWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 96px;
   height: 48px;
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  padding: 30px 50px;
+
+  background: ${({ theme }) => theme.bgColor};
+  color: ${({ theme }) => theme.textColor};
+  font-size: 20px;
   border-radius: 30px;
 
-  box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;
+  box-shadow: ${({ mode }) =>
+    mode === "light"
+      ? "rgb(0,0,0,0.2) 0px 2px 16px 1px"
+      : "#fff 0px 0px 10px 1px"};
+  &:hover {
+    transition: all 0.5s;
+    opacity: 0.7;
+  }
 `;
