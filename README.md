@@ -1,7 +1,6 @@
 # 🗓 PayWork_Calendar Report
 
 #### 🙌🏻 make custom Calendar using React-hooks & moment.js 🙌🏻
-### Deploy 
 
 <br/>
 <div align = 'center'>
