@@ -1,7 +1,11 @@
 import React from "react";
 import { StyledDays, StyledEachDay } from "./styledCalendar";
+import { useTheme } from "../Hooks/themeProvider";
+import { dayStyles } from "../Hooks/calendarFunc";
 
-function CalendarBody({ calendar, setValue, value, dayStyles }) {
+function CalendarItem({ calendar, value, changeMonthHandler }) {
+  const ThemeMode = useTheme();
+
   return (
     <>
       {calendar.map((week, idx) => {
@@ -10,11 +14,15 @@ function CalendarBody({ calendar, setValue, value, dayStyles }) {
             {week.map((day, idx) => {
               return (
                 <StyledDays
+                  theme={ThemeMode[0]}
                   key={idx}
                   className="day"
-                  onClick={() => setValue(day)}
+                  onClick={() => changeMonthHandler(day)}
                 >
-                  <StyledEachDay className={dayStyles(day, value)}>
+                  <StyledEachDay
+                    theme={ThemeMode[0]}
+                    className={dayStyles(day, value)}
+                  >
                     {day.format("D").toString()}
                   </StyledEachDay>
                 </StyledDays>
@@ -27,4 +35,4 @@ function CalendarBody({ calendar, setValue, value, dayStyles }) {
   );
 }
 
-export default CalendarBody;
+export default CalendarItem;

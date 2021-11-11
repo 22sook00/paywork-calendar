@@ -1,14 +1,13 @@
 import styled from "styled-components";
-import {
-  HoverGreyColor,
-  PointColor,
-  TextColor,
-} from "../../GlobalStyle";
+import { HoverGreyColor, PointColor, TextColor } from "../../Theme/GlobalStyle";
 
 export const CalendarWrapper = styled.div`
   width: 430px;
   height: 460px;
-  box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;
+  box-shadow: ${({ theme }) =>
+    theme === "light"
+      ? "rgb(0, 0, 0, 0.1) 0px 2px 16px 1px"
+      : "#fff 0px 2px 16px 1px"};
   border-radius: 8px;
   padding: 30px;
   box-sizing: border-box;
@@ -45,7 +44,7 @@ export const StyledEachDay = styled.div`
     color: #fff;
   }
   &.not-cur-month {
-    color: #cbced6;
+    color: ${({ theme }) => (theme === "light" ? "#cbced6" : TextColor)};
   }
 `;
 export const FlexBox = styled.div`
@@ -58,30 +57,11 @@ export const FlexBox = styled.div`
     margin-left: 18px;
   }
 `;
-export const Btns = styled.button`
-  width: fit-content;
-  height: 40px;
-  margin: 0 3px;
-  padding: 0 10px;
-  border-radius: 8px;
-  background: ${HoverGreyColor};
-  color: ${TextColor};
-  font-size: 18px;
-  font-family: "Nanum Gothic Coding";
-  letter-spacing: -1px;
-  &:hover {
-    color: ${PointColor};
-    background: rgba(0, 0, 0, 0.01);
-  }
-  &.this {
-    font-size: 16px;
-    margin-right: 10px;
-  }
-`;
+
 export const StyledDayOfWeek = styled.div`
   font-family: "Nanum Gothic Coding";
+  color: ${({ theme }) => (theme === "light" ? TextColor : "#cbced6")};
   > div {
-    color: ${TextColor};
     font-weight: 900;
   }
 `;

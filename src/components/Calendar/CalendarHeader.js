@@ -1,15 +1,16 @@
 import React from "react";
-import { FlexBox, Btns, StyledDayOfWeek, StyledDays } from "./styledCalendar";
+import CalendarButton from "../Button/CalendarButton";
+import { useTheme } from "../Hooks/themeProvider";
+import { FlexBox } from "./styledCalendar";
 
-function CalendarHeader({
-  curYear,
-  curMonth,
-  thisMonth,
-  setValue,
-  prevMonth,
-  nextMonth,
-}) {
-  const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+function CalendarHeader({ value, changeMonthHandler }) {
+  const ThemeMode = useTheme();
+  const curYear = () => {
+    return value.format("YYYY");
+  };
+  const curMonth = () => {
+    return value.format("MM");
+  };
 
   return (
     <>
@@ -17,27 +18,12 @@ function CalendarHeader({
         <p>
           {curYear()}.{curMonth()}
         </p>
-
-        <div>
-          <Btns className="prev" onClick={() => setValue(prevMonth())}>
-            <i className="fas fa-chevron-left"></i>
-          </Btns>
-
-          <Btns className="next" onClick={() => setValue(nextMonth())}>
-            <i className="fas fa-chevron-right"></i>
-          </Btns>
-
-          <Btns className="this" onClick={() => setValue(thisMonth())}>
-            이번달
-          </Btns>
-        </div>
+        <CalendarButton
+          theme={ThemeMode[0]}
+          changeMonthHandler={changeMonthHandler}
+          value={value}
+        />
       </FlexBox>
-
-      <StyledDayOfWeek>
-        {dayOfWeek.map((el, idx) => {
-          return <StyledDays key={idx}>{el}</StyledDays>;
-        })}
-      </StyledDayOfWeek>
     </>
   );
 }
