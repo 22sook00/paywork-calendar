@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TextColor } from "../../GlobalStyle";
+import { TextColor } from '../../Theme/GlobalStyle';
 
 export const FooterContainer = styled.footer`
   height: 100px;

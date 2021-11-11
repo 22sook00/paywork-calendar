@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import {useTheme} from '../Hooks/themeProvider';
 import { CalendarWrapper } from "./styledCalendar";
 import CalendarHeader from "./CalendarHeader";
 import CalendarDayOfWeek from "./CalendarDayOfWeek";
 import CalendarItem from "./CalendarItem";
 
 function Calendar() {
+
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
 
@@ -28,8 +30,10 @@ function Calendar() {
     // console.log('calendar:::',calendar)
   }, [value]);
 
+  const ThemeMode = useTheme();
+
   return (
-    <CalendarWrapper>
+    <CalendarWrapper theme={ThemeMode[0]}>
       <CalendarHeader value={value} setValue={setValue} />
       <CalendarDayOfWeek />
       <CalendarItem calendar={calendar} value={value} setValue={setValue} />

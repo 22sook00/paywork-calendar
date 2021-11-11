@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import {
-  HoverGreyColor,
-  PointColor,
-  TextColor,
-} from "../../GlobalStyle";
+import { HoverGreyColor, PointColor, TextColor } from "../../Theme/GlobalStyle";
 
 export const CalendarWrapper = styled.div`
   width: 430px;
   height: 460px;
-  box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;
+  box-shadow: ${({ theme }) => (theme === "light" ? 
+  "rgb(0 0 0 / 10%) 0px 2px 16px 1px" 
+  : 
+  '0px 5px 10px rgba(30, 30, 40, 10), 0px 2px 4px rgba(10, 40, 50, 10)')};
+
+
   border-radius: 8px;
   padding: 30px;
   box-sizing: border-box;
@@ -45,7 +46,7 @@ export const StyledEachDay = styled.div`
     color: #fff;
   }
   &.not-cur-month {
-    color: #cbced6;
+    color: ${({ theme }) => (theme === "light" ? "#cbced6" : TextColor)};
   }
 `;
 export const FlexBox = styled.div`
